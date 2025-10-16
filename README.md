@@ -12,7 +12,7 @@ A Foundry VTT module for converting Rollable Table entries into D&D 5E items and
 
 ## Requirements
 
-- Foundry VTT v10+ (verified up to v13)
+- Foundry VTT v13
 - D&D 5E system
 
 ## Installation
@@ -22,11 +22,11 @@ A Foundry VTT module for converting Rollable Table entries into D&D 5E items and
 
 ## Usage
 
-1. Open any Rollable Table in your world
+1. Open any Rollable Table in your world, and edit it
 2. Click the "Convert Table to Items" button in the table header
 3. Select or create a target compendium for the items
 4. The module will:
-   - Create D&D 5E items for each table entry
+   - Create items for each table entry
    - Use the table entry text as item descriptions
    - Name items using "Result Name" if available, otherwise "TableName #001" format
    - Store items in your chosen compendium

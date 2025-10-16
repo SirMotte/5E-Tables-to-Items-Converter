@@ -1,0 +1,12 @@
+{
+  "foundry-tables-to-items.convert-table": "Convert to Items",
+  "foundry-tables-to-items.select-compendium": "Select Target Compendium",
+  "foundry-tables-to-items.conversion-complete": "Conversion Complete",
+  "foundry-tables-to-items.items-created": "{count} items created in compendium {compendium}",
+  "foundry-tables-to-items.no-compendium-selected": "No compendium selected",
+  "foundry-tables-to-items.error-converting": "Error converting table entries",
+  "foundry-tables-to-items.choose-compendium": "Choose Compendium",
+  "foundry-tables-to-items.create-new-compendium": "Create New Compendium",
+  "foundry-tables-to-items.compendium-name": "Compendium Name",
+  "foundry-tables-to-items.convert-all-entries": "Convert Entries to Items"
+}

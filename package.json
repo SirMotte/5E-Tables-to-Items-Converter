@@ -1,0 +1,25 @@
+{
+  "name": "foundry-tables-to-items",
+  "version": "1.0.0",
+  "description": "Convert Foundry VTT Rollable Table entries into D&D 5E items and store them in compendiums",
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "tsc && vite build --watch"
+  },
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^13.346.0-beta.20250812191140",
+    "@types/file-saver": "^2.0.7",
+    "@types/jquery": "^3.5.29",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-scss": "^3.0.0",
+    "sass": "^1.54.8",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1"
+  }
+}

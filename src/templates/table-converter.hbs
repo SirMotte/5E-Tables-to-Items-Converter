@@ -1,0 +1,33 @@
+<form class="{{moduleId}}-converter-form">
+    <div class="form-group">
+        <label for="table-name">Table to Convert:</label>
+        <input type="text" id="table-name" value="{{tableName}}" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="compendium">Target Compendium:</label>
+        <select name="compendium" id="compendium" required>
+            <option value="">-- Select Compendium --</option>
+            {{#each compendiums}}
+            <option value="{{metadata.id}}">{{metadata.label}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="namePattern">Item Name Pattern:</label>
+        <input type="text" name="namePattern" id="namePattern" value="{tableName} #{number}" 
+               placeholder="e.g., {tableName} #{number}">
+        <p class="hint">Use {tableName} for table name, {number} or #{number} for entry number</p>
+    </div>
+
+    <div class="form-group">
+        <input type="checkbox" name="useResultName" id="useResultName" value="true" checked>
+        <label for="useResultName">Prioritize "Result Name" over pattern (when available)</label>
+    </div>
+
+    <div class="form-group">
+        <input type="checkbox" name="addBackLinks" id="addBackLinks" value="true" checked>
+        <label for="addBackLinks">Add back-links from table entries to created items</label>
+    </div>
+</form>

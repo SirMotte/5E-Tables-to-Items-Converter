@@ -1,0 +1,23 @@
+{
+  "id": "foundry-tables-to-items",
+  "title": "Foundry Tables to Items",
+  "description": "Convert Foundry VTT Rollable Table entries into D&D 5E items and store them in compendiums",
+  "version": "this is auto replaced",
+  "packs": [],
+  "relationships": [],
+  "scripts": [],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13",
+    "maximum": "13"
+  },
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "languages/en.json"
+    }
+  ],
+  "styles": ["styles/style.css"],
+  "esmodules": ["scripts/module.js"]
+}

@@ -1,6 +1,146 @@
 import { moduleId } from "../constants.js";
 import type { ConversionOptions, ConversionResult, CompendiumInfo } from "../types.js";
 
+/**
+ * Application v2 dialog for table conversion
+ */
+class TableConverterDialog extends foundry.applications.api.HandlebarsApplicationMixin(foundry.applications.api.ApplicationV2) {
+    table: any;
+    
+    static DEFAULT_OPTIONS = {
+        id: "table-converter-dialog",
+        tag: "form",
+        window: {
+            title: "foundry-tables-to-items.convert-table",
+            icon: "fas fa-magic",
+            resizable: false
+        },
+        position: {
+            width: 500,
+            height: "auto"
+        }
+    };
+
+    static PARTS = {
+        form: {
+            template: "modules/foundry-tables-to-items/templates/table-converter.hbs"
+        }
+    };
+
+    constructor(table: any, options = {}) {
+        super(options);
+        this.table = table;
+    }
+
+    get title() {
+        return (game as any).i18n.localize("foundry-tables-to-items.convert-table");
+    }
+
+    async _prepareContext(): Promise<any> {
+        const compendiums = TableConverter.getAvailableCompendiums();
+        return {
+            tableName: this.table.name,
+            compendiums: compendiums,
+            moduleId: moduleId
+        };
+    }
+
+    _onClickAction(_event: Event, target: HTMLElement) {
+        const action = target.dataset.action;
+        switch (action) {
+            case "convert":
+                return this._onConvert();
+            case "cancel":
+                return this._onCancel();
+            default:
+                return;
+        }
+    }
+
+    async _onConvert() {
+        const form = (this as any).element?.querySelector('form') as HTMLFormElement;
+        if (!form) return;
+        
+        const formData = new FormData(form);
+        const compendium = formData.get("compendium") as string;
+        
+        if (!compendium) {
+            (ui as any).notifications?.warn((game as any).i18n.localize("foundry-tables-to-items.no-compendium-selected"));
+            return;
+        }
+
+        const options: ConversionOptions = {
+            targetCompendium: compendium,
+            namePattern: (formData.get("namePattern") as string) || "{tableName} #{number}",
+            useResultName: Boolean(formData.get("useResultName")),
+            addBackLinks: Boolean(formData.get("addBackLinks"))
+        };
+
+        try {
+            const result = await TableConverter.convertTableToItems(this.table, options);
+            
+            if (result.success) {
+                (ui as any).notifications?.info(
+                    (game as any).i18n.format("foundry-tables-to-items.conversion-complete", {
+                        count: result.itemsCreated
+                    })
+                );
+                await (this as any).close();
+            } else {
+                (ui as any).notifications?.error(
+                    (game as any).i18n.localize("foundry-tables-to-items.conversion-failed") + ": " + result.errors.join(", ")
+                );
+            }
+        } catch (error) {
+            console.error(`${moduleId} | Conversion failed:`, error);
+            (ui as any).notifications?.error((game as any).i18n.localize("foundry-tables-to-items.conversion-failed"));
+        }
+    }
+
+    async _onCancel() {
+        await (this as any).close();
+    }
+
+    async _onSubmitForm(event: Event, _form: HTMLFormElement, formData: FormData) {
+        event.preventDefault();
+        
+        const compendium = formData.get("compendium") as string;
+        if (!compendium) {
+            (ui as any).notifications?.warn((game as any).i18n.localize("foundry-tables-to-items.no-compendium-selected"));
+            return false;
+        }
+
+        const options: ConversionOptions = {
+            targetCompendium: compendium,
+            namePattern: (formData.get("namePattern") as string) || "{tableName} #{number}",
+            useResultName: Boolean(formData.get("useResultName")),
+            addBackLinks: Boolean(formData.get("addBackLinks"))
+        };
+
+        try {
+            const result = await TableConverter.convertTableToItems(this.table, options);
+            
+            if (result.success) {
+                (ui as any).notifications?.info(
+                    (game as any).i18n.format("foundry-tables-to-items.conversion-complete", {
+                        count: result.itemsCreated
+                    })
+                );
+                return true; // Allow close
+            } else {
+                (ui as any).notifications?.error(
+                    (game as any).i18n.localize("foundry-tables-to-items.conversion-failed") + ": " + result.errors.join(", ")
+                );
+                return false; // Prevent close
+            }
+        } catch (error) {
+            console.error(`${moduleId} | Conversion failed:`, error);
+            (ui as any).notifications?.error((game as any).i18n.localize("foundry-tables-to-items.conversion-failed"));
+            return false; // Prevent close
+        }
+    }
+}
+
 export class TableConverter {
     
     static initialize(): void {
@@ -11,24 +151,24 @@ export class TableConverter {
      * Add convert button to rollable table sheets (only in edit mode)
      */
     static addConvertButton(app: any, html: any): void {
+        // addConvertButton called when a RollTable sheet renders
+
         // Ensure html is a jQuery object
         const $html = ($ as any)(html);
-        
+
         // Check if we're in edit mode by looking for the fa-pen icon
         // If fa-pen is present, we're NOT in edit mode, so don't show the button
         const editButton = $html.find('[data-action="changeMode"]');
         const isViewMode = editButton.find('.fa-pen').length > 0;
-        
+
         if (isViewMode) {
             // Remove button if it exists and we're in view mode
             $html.find(".convert-table-button").remove();
             return;
         }
-        
+
         // Check if button already exists to avoid duplicates
-        if ($html.find(".convert-table-button").length > 0) {
-            return;
-        }
+        if ($html.find(".convert-table-button").length > 0) return;
 
         const button = ($ as any)(`
             <button type="button" class="convert-table-button" data-action="convertTable">
@@ -41,7 +181,7 @@ export class TableConverter {
             event.preventDefault();
             this.openConversionDialog(app.document);
         });
-        
+
         // Add button to the header - append to the end instead of right after edit button
         const sheetHeader = $html.find(".sheet-header");
         if (sheetHeader.length > 0) {
@@ -49,9 +189,7 @@ export class TableConverter {
         } else {
             // Fallback: try to find any header element
             const fallbackHeader = $html.find("header").first();
-            if (fallbackHeader.length > 0) {
-                fallbackHeader.append(button);
-            }
+            if (fallbackHeader.length > 0) fallbackHeader.append(button);
         }
     }
 
@@ -59,30 +197,12 @@ export class TableConverter {
      * Open the conversion dialog for selecting compendium and options
      */
     static async openConversionDialog(table: any): Promise<void> {
-        const compendiums = this.getAvailableCompendiums();
-        
-        const content = await (foundry as any).applications.handlebars.renderTemplate("modules/foundry-tables-to-items/templates/table-converter.hbs", {
-            tableName: table.name,
-            compendiums: compendiums,
-            moduleId: moduleId
-        });
-
-        new (Dialog as any)({
-            title: (game as any).i18n.localize("foundry-tables-to-items.convert-table"),
-            content: content,
-            buttons: {
-                convert: {
-                    icon: '<i class="fas fa-magic"></i>',
-                    label: (game as any).i18n.localize("foundry-tables-to-items.convert-all-entries"),
-                    callback: (html: any) => this.handleConversion(table, html)
-                },
-                cancel: {
-                    icon: '<i class="fas fa-times"></i>',
-                    label: "Cancel"
-                }
-            },
-            default: "convert"
-        }).render(true);
+        try {
+            const dialog = new TableConverterDialog(table);
+            await (dialog as any).render({ force: true });
+        } catch (error) {
+            console.error(`${moduleId} | Failed to open dialog:`, error);
+        }
     }
 
     /**
@@ -103,44 +223,7 @@ export class TableConverter {
         return compendiums;
     }
 
-    /**
-     * Handle the conversion process
-     */
-    static async handleConversion(table: any, html: any): Promise<void> {
-        const formData = new FormData(html.find("form")[0]);
-        const selectedCompendium = formData.get("compendium") as string;
-        
-        if (!selectedCompendium) {
-            (ui as any).notifications?.warn((game as any).i18n.localize("foundry-tables-to-items.no-compendium-selected"));
-            return;
-        }
 
-        const options: ConversionOptions = {
-            targetCompendium: selectedCompendium,
-            namePattern: formData.get("namePattern") as string || "{tableName} #{number}",
-            useResultName: formData.get("useResultName") === "true",
-            addBackLinks: formData.get("addBackLinks") === "true"
-        };
-
-        try {
-            const result = await this.convertTableToItems(table, options);
-            
-            if (result.success) {
-                (ui as any).notifications?.info(
-                    (game as any).i18n.format("foundry-tables-to-items.items-created", {
-                        count: result.itemsCreated,
-                        compendium: selectedCompendium
-                    })
-                );
-            } else {
-                (ui as any).notifications?.error((game as any).i18n.localize("foundry-tables-to-items.error-converting"));
-                console.error(`${moduleId} | Conversion errors:`, result.errors);
-            }
-        } catch (error) {
-            (ui as any).notifications?.error((game as any).i18n.localize("foundry-tables-to-items.error-converting"));
-            console.error(`${moduleId} | Conversion failed:`, error);
-        }
-    }
 
     /**
      * Convert table entries to items
@@ -156,14 +239,14 @@ export class TableConverter {
         const compendium = (game as any).packs.get(options.targetCompendium);
         if (!compendium) {
             result.success = false;
-            result.errors.push(`Compendium ${options.targetCompendium} not found`);
+            result.errors.push((game as any).i18n.format("foundry-tables-to-items.compendium-not-found", { compendium: options.targetCompendium }));
             return result;
         }
 
         // Check if compendium is locked
         if (compendium.locked) {
             result.success = false;
-            result.errors.push(`Compendium ${options.targetCompendium} is locked`);
+            result.errors.push((game as any).i18n.format("foundry-tables-to-items.compendium-locked", { compendium: options.targetCompendium }));
             return result;
         }
 
@@ -218,16 +301,16 @@ export class TableConverter {
                             await this.addBackLinkToTableEntry(table, tableResult, createdItem, compendium);
                         }
                     } else {
-                        result.errors.push(`Failed to create item ${itemName}: createDocument returned invalid result`);
+                        result.errors.push((game as any).i18n.format("foundry-tables-to-items.failed-create-item", { name: itemName }) + ": " + (game as any).i18n.localize("foundry-tables-to-items.invalid-result"));
                     }
                 } catch (createError) {
-                    result.errors.push(`Failed to create item ${itemName}: ${createError}`);
+                    result.errors.push((game as any).i18n.format("foundry-tables-to-items.failed-create-item", { name: itemName }) + ": " + createError);
                     console.error(`${moduleId} | Error creating item:`, createError);
                 }
                 
                 entryNumber++;
             } catch (error) {
-                result.errors.push(`Failed to create item for entry ${tableResult.id}: ${error}`);
+                result.errors.push((game as any).i18n.format("foundry-tables-to-items.failed-create-entry", { entry: tableResult.id }) + ": " + error);
                 console.error(`${moduleId} | Error creating item:`, error);
             }
         }

@@ -1,13 +1,13 @@
 <form class="{{moduleId}}-converter-form">
     <div class="form-group">
-        <label for="table-name">Table to Convert:</label>
+        <label for="table-name">{{localize "foundry-tables-to-items.table-to-convert"}}</label>
         <input type="text" id="table-name" value="{{tableName}}" readonly>
     </div>
 
     <div class="form-group">
-        <label for="compendium">Target Compendium:</label>
+        <label for="compendium">{{localize "foundry-tables-to-items.target-compendium"}}</label>
         <select name="compendium" id="compendium" required>
-            <option value="">-- Select Compendium --</option>
+            <option value="">{{localize "foundry-tables-to-items.select-compendium"}}</option>
             {{#each compendiums}}
             <option value="{{metadata.id}}">{{metadata.label}}</option>
             {{/each}}
@@ -15,19 +15,30 @@
     </div>
 
     <div class="form-group">
-        <label for="namePattern">Item Name Pattern:</label>
+        <label for="namePattern">{{localize "foundry-tables-to-items.item-name-pattern"}}</label>
         <input type="text" name="namePattern" id="namePattern" value="{tableName} #{number}" 
                placeholder="e.g., {tableName} #{number}">
-        <p class="hint">Use {tableName} for table name, {number} or #{number} for entry number</p>
+        <p class="hint">{{localize "foundry-tables-to-items.name-pattern-hint"}}</p>
     </div>
 
     <div class="form-group">
         <input type="checkbox" name="useResultName" id="useResultName" value="true" checked>
-        <label for="useResultName">Prioritize "Result Name" over pattern (when available)</label>
+        <label for="useResultName">{{localize "foundry-tables-to-items.prioritize-result-name"}}</label>
     </div>
 
     <div class="form-group">
         <input type="checkbox" name="addBackLinks" id="addBackLinks" value="true" checked>
-        <label for="addBackLinks">Add back-links from table entries to created items</label>
+        <label for="addBackLinks">{{localize "foundry-tables-to-items.add-back-links"}}</label>
     </div>
+
+    <footer class="form-footer flexrow">
+        <button type="button" data-action="cancel">
+            <i class="fas fa-times"></i>
+            {{localize "foundry-tables-to-items.cancel"}}
+        </button>
+        <button type="button" data-action="convert">
+            <i class="fas fa-magic"></i>
+            {{localize "foundry-tables-to-items.convert"}}
+        </button>
+    </footer>
 </form>

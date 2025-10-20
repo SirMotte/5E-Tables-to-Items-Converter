@@ -58,8 +58,6 @@ This also enables other modules — such as [Random Loot Generator](https://gith
 4. Click the “Convert to Items” button  
    You will see a new button labeled **Convert to Items**. Click it to open the conversion dialog.
 
-<img width="818" height="605" alt="image" src="https://github.com/user-attachments/assets/bdba4db2-0752-4352-ba21-10fc645376a0" />
-
 5. Target Compendium:  
    From the dropdown, select the compendium you created earlier or an existing one. This is where new items will be generated.
 
@@ -72,8 +70,6 @@ This also enables other modules — such as [Random Loot Generator](https://gith
    - **Add backlinks from table entries to created items**  
      Appends a clickable and draggable reference to the generated item within each corresponding table row.
      
-<img width="399" height="424" alt="image" src="https://github.com/user-attachments/assets/6b316bb4-2282-4877-bd9d-fd2ff7da7f37" />
-
 8. Click “Convert Entries to Items”  
    The conversion process will begin. Depending on the number of entries, this may take a while. Foundry will tell you when item creation has finished.
 
@@ -83,8 +79,6 @@ This also enables other modules — such as [Random Loot Generator](https://gith
 10. Done!  
     You now have a full set of items in your compendium based on the table entries. If enabled, each table entry will also include a backlink to its corresponding item.
     
-<img width="1949" height="1112" alt="image" src="https://github.com/user-attachments/assets/f69ea313-b19e-44a2-8c67-a6b53250cc1f" />
-
 ---
 
 ### Important behavior

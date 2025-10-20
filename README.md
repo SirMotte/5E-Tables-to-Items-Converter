@@ -1,7 +1,7 @@
 # 5E Table to Items Converter - Foundry VTT Module
 
 **Concept and ideation:** Sir Motte  
-**Code and execution:** ThreeHats
+**Code and execution:** [ThreeHats](https://github.com/ThreeHats)
 
 Special thanks to Zee? for developing this module to specification. It is in maintenance mode — no new features will be added. Suggestions for improvement are welcome, but implementation is unlikely.
 

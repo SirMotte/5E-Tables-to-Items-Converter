@@ -84,7 +84,8 @@ This also enables other modules — such as [Random Loot Generator](https://gith
     You now have a full set of items in your compendium based on the table entries. If enabled, each table entry will also include a backlink to its corresponding item.
     
   <img width="1568" height="618" alt="image" src="https://github.com/user-attachments/assets/8ed97b2e-6be5-40ed-aa03-fbbcc800dbe8" />
-  
+  <img width="348" height="1270" alt="image" src="https://github.com/user-attachments/assets/1983a3e8-603f-43cc-8a1e-f5e832ec9bd6" />
+
 ---
 
 ### Important behavior

@@ -74,7 +74,7 @@ This also enables other modules — such as [Random Loot Generator](https://gith
    The conversion process will begin. Depending on the number of entries, this may take a while. Foundry will tell you when item creation has finished.
 
 9. Wait for the process to finish  
-   For large tables (e.g., 100+ entries), allow a short moment for the module to complete the process.
+   Large tables will take a while, especially with back-linking active.
 
 10. Done!  
     You now have a full set of items in your compendium based on the table entries. If enabled, each table entry will also include a backlink to its corresponding item.

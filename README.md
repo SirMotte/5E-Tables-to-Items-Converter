@@ -57,28 +57,33 @@ This also enables other modules — such as [Random Loot Generator](https://gith
 
 4. Click the “Convert to Items” button  
    You will see a new button labeled **Convert to Items**. Click it to open the conversion dialog.
-
-5. Target Compendium:  
+   
+   <img width="811" height="503" alt="image" src="https://github.com/user-attachments/assets/246380e5-8c77-4805-8089-72fa749c2b35" />
+   <img width="501" height="402" alt="image" src="https://github.com/user-attachments/assets/88cebbfd-c60f-4184-915e-41b9ccf5e643" />
+   
+6. Target Compendium:  
    From the dropdown, select the compendium you created earlier or an existing one. This is where new items will be generated.
 
-6. Item Name Pattern: 
+7. Item Name Pattern: 
    Choose how item names should be generated if the table entries don’t use the “Result Name” field. You may use a custom name or a custom name combined with any of the predefined tokens shown in the dialog description.
 
-7. Choose additional options:
+8. Choose additional options:
    - **Prioritize "Result Name" over pattern (when available)**  
      If enabled and the table entry has a populated “Result Name” field, that entry will be used for the item name instead of the naming pattern.
    - **Add backlinks from table entries to created items**  
      Appends a clickable and draggable reference to the generated item within each corresponding table row.
      
-8. Click “Convert Entries to Items”  
+9. Click “Convert Entries to Items”  
    The conversion process will begin. Depending on the number of entries, this may take a while. Foundry will tell you when item creation has finished.
 
-9. Wait for the process to finish  
+10. Wait for the process to finish  
    Large tables will take a while, especially with back-linking active.
 
-10. Done!  
+11. Done!  
     You now have a full set of items in your compendium based on the table entries. If enabled, each table entry will also include a backlink to its corresponding item.
     
+  <img width="1568" height="618" alt="image" src="https://github.com/user-attachments/assets/8ed97b2e-6be5-40ed-aa03-fbbcc800dbe8" />
+  
 ---
 
 ### Important behavior

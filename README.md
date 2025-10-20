@@ -58,8 +58,9 @@ This also enables other modules — such as [Random Loot Generator](https://gith
 4. Click the “Convert to Items” button  
    You will see a new button labeled **Convert to Items**. Click it to open the conversion dialog.
    
-   <img width="811" height="503" alt="image" src="https://github.com/user-attachments/assets/246380e5-8c77-4805-8089-72fa749c2b35" />
-   <img width="501" height="402" alt="image" src="https://github.com/user-attachments/assets/88cebbfd-c60f-4184-915e-41b9ccf5e643" />
+<img width="830" height="141" alt="image" src="https://github.com/user-attachments/assets/d585d805-b4f3-4a9f-a0ff-35d85c73ac4f" />
+
+<img width="501" height="402" alt="image" src="https://github.com/user-attachments/assets/88cebbfd-c60f-4184-915e-41b9ccf5e643" />
    
 6. Target Compendium:  
    From the dropdown, select the compendium you created earlier or an existing one. This is where new items will be generated.

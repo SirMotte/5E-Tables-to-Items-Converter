@@ -108,3 +108,12 @@ Either search the Foundry VTT Module Browser for "Tables to Items Converter" and
 1. Download the module files.  
 2. Place the unzipped folder in your Foundry VTT "modules" directory.  
 3. Enable the module in the Module Manager within your game world.
+
+### Development
+This module is built with TypeScript and Vite for Foundry VTT v13.
+
+npm run build - Build the module
+npm run dev - Build with watch mode for development
+
+### License
+This project is licensed under the MIT License.

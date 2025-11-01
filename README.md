@@ -11,7 +11,7 @@ Special thanks to Threehats for developing this module to specification. It is i
 
 Table to Items Converter is a Foundry VTT module for Dungeons & Dragons 5E that automates the process of converting rollable tables into fully functional items, directly importing them into a selected item compendium.
 
-The module extracts entries from a rollable table, creating items based on a customizable naming convention and adding the entry text as the item description. If a "Result Name" is defined in the table entry, it prioritizes that as the item name. Additionally, it can insert backlinks to the original table entries, linking each item to its corresponding rollable table result. This process reduces manual effort tremendously.
+The module extracts entries from a rollable table, creating items based on a customizable naming convention and adding the entry text as the item description. If a "Result Name" is defined in the table entry, it can use that as the item name. Additionally, it can insert backlinks to the original table entries, linking each item to its corresponding rollable table result. This process reduces manual effort tremendously.
 
 ---
 

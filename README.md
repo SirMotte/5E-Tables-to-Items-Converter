@@ -9,11 +9,9 @@ Special thanks to Threehats for developing this module to specification. It is i
 
 ⚠️ **Always back up your tables before conversion!**
 
-Table to Items Converter is a Foundry VTT module for Dungeons & Dragons 5E that automates converting rollable tables into fully functional items and importing them into a chosen item compendium. Ideal for game masters and content creators, it streamlines turning randomized loot and other table-driven results into ready-to-use itemized assets within Foundry.
+Table to Items Converter is a Foundry VTT module for Dungeons & Dragons 5E that automates the process of converting rollable tables into fully functional items, directly importing them into a selected item compendium.
 
-The module reads the entries of a rollable table and creates items based on a customizable naming convention and adds the entry text as item description. If a "Result Name" is specified in a table entry, the module can prioritize using that as the item name. Optionally, it can also insert backlinks into the original table entries, linking each to its corresponding item. This workflow saves significant manual effort or shortens other time consuming workflows.
-
-This also enables other modules — such as [Random Loot Generator](https://github.com/mfozz/random-loot-generator) — to use either the original tables or the newly created items in the compendium.
+The module extracts entries from a rollable table, creating items based on a customizable naming convention and adding the entry text as the item description. If a "Result Name" is defined in the table entry, it prioritizes that as the item name. Additionally, it can insert backlinks to the original table entries, linking each item to its corresponding rollable table result. This process reduces manual effort tremendously.
 
 ---
 
@@ -99,7 +97,6 @@ This also enables other modules — such as [Random Loot Generator](https://gith
 ## Installation
 
 ### Automated installation (recommended)
-Either search the Foundry VTT Module Browser for "Tables to Items Converter" and click Install; or:
 
 1. Open your Foundry VTT instance.  
 2. Go to **Add-on Modules**.  
